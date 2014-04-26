@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load cms_tags sekizai_tags staticfiles thumbnail %}
+
+{% block title %}{{ staff.full_name }}{% endblock title %}
+
+{% block content %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static "staff/css/styles.css" %}">{% endaddtoblock %}
+  <div style="width:20%; float:left;">
+    <div class="staff-detail">
+      {% thumbnail staff.photo '136x136' crop subject_location=staff.photo.subject_location as photo %}
+      <img src="{{ photo.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ staff.full_name }}">
+    </div>
+  </div>
+  <div style="width:80%; float:left;">
+    <div class="staff-detail">
+      <h1 class="name">{% render_model staff "full_name" %}</h1>
+      <div class="title">{{ staff.seniority }}</div>
+      <div class="staff-bio">{% render_placeholder staff.bio %}</div>
+    </div>
+  </div>
+{% endblock content %}

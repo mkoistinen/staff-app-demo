@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load sekizai_tags staticfiles thumbnail %}
+
+{% block title %}Staff{% endblock title %}
+
+{% block content %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static "staff/css/styles.css" %}">{% endaddtoblock %}
+  <div style="width:20%; float:left;">
+    &nbsp;
+  </div>
+  <div style="width:80%; float:left;">
+    <ul class="staff-list">
+      {% for staff in object_list %}
+      {% thumbnail staff.photo '136x136' crop subject_location=staff.photo.subject_location as photo %}
+      <li>
+        <a href="{{ staff.absolute_url }}">
+          <img src="{{ photo.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ staff.full_name }}">
+        </a>
+        <a class="name" href="{{ staff.absolute_url }}">{{ staff.full_name }}</a>
+        <p class="title">{{ staff.seniority }}</p>
+      </li>
+      {% empty %}
+      <p>No staff yet, please add some!</p>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock content %}
