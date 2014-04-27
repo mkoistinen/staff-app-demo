@@ -13,5 +13,6 @@ Here's some links/references to subjects mentioned in the video:
 * djangocms-installer - https://github.com/nephila/djangocms-installer (repo)
 * django-filer - https://github.com/stefanfoulis/django-filer (repo)
 * easy_thumbnails - http://easy-thumbnails.readthedocs.org/en/2.0.1/ (docs)
+* Application/Instance Namespaces - https://docs.djangoproject.com/en/dev/topics/http/urls/#url-namespaces (docs)
 
 Note: I do not include the media (photos) in this repo, since I do not own them.
