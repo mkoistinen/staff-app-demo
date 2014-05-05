@@ -1,0 +1,36 @@
+{% load cms_tags %}
+{% load url from future %}
+
+<div class="news_archive_plugin sidebar-plugin plugin{% if instance.is_first_in_placeholder %} first_plugin{% endif %}">
+    <div class="inner">
+        <h3>Archives</h3>{% if dates %}
+
+        {% regroup dates by date.year as years %}
+        {% with current_year=year current_month=month %}
+        <ul class="dates">
+            <li{% if not current_year %} class="active"{% endif %}>
+                <a href="{% url 'news:archive' %}">All</a>
+            </li>
+            {% for year in years %}
+            <li{% if year.grouper == current_year %} class="active"{% endif %}>
+                <a href="{% if category_slug %}{% url 'news:archive' category_slug=category_slug year=year.grouper %}{% else %}{% url 'news:archive' year=year.grouper %}{% endif %}">{{ year.grouper }}</a>{% if not show_months %} <span class="meta">({{ year.list.0.count }})</span>{% endif %}{% if show_months %}
+                <ul>
+                    {% for month in year.list %}
+                    <li{% if year.grouper == current_year and month.date.month == current_month %} class="active"{% endif %}>
+                        <a href="{% if category_slug %}{% url 'news:archive' category_slug=category_slug year=year.grouper month=month.date|date:"n" %}{% else %}{% url 'news:archive' year=year.grouper month=month.date|date:"n" %}{% endif %}">{{ month.date|date:"F" }}</a> <span class="meta">({{ month.count }})</span>
+                    </li>
+                    {% endfor %}
+                </ul>{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endwith %}
+
+        {% else %}
+        <p class="none">There are currently no news archives. Please try again later.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% load i18n %}
+{% load url from future %}

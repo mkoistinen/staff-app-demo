@@ -1,0 +1,35 @@
+{% extends CMS_TEMPLATE %}
+{% load cms_tags sekizai_tags staticfiles %}
+
+{% block body_classes %}{{ block.super }} contact-form{% endblock %}
+
+{% block app_content %}
+    {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'contacts/css/styles.css' %}">{% endaddtoblock %}
+    {% static_placeholder "contact_content" %}
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        {% for hidden in form.hidden_fields %}
+        {% if hidden.name == 'referer' %}
+        <input type="hidden" name="{{ hidden.name }}" value="{{ hidden.value }}">
+        {% endif %}
+        {% endfor %}
+
+        {% for visible in form.visible_fields %}
+        <div class="field-wrapper {{ visible.css_classes }}">
+        {{ visible.label_tag }}
+        {% for error in visible.errors %}
+        <div class="error">{{ error }}</div>
+        {% empty %}
+        <div class="help-text">{{ visible.help_text }}</div>
+        {% endfor %}
+        {{ visible }}
+        </div>
+        {% endfor %}
+
+        <input type="submit" value="Submit">
+    </form>
+    <div class="legend"><span class="required">*</span> Required field</div>
+{% endblock %}

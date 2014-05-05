@@ -1,0 +1,34 @@
+{% load sekizai_tags staticfiles %}
+
+{% addtoblock "js" %}<script src="{% static 'contacts/scripts/contacts.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'contacts/css/styles.css' %}">{% endaddtoblock %}
+
+<div class="contacts-plugin plugin">
+  <div class="inner">
+    <div class="contact-form">
+      {% if title %}<h3>{{ title }}</h3>{% endif %}
+      <form method="post" action="{{ form_action }}">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+        {% if hidden.name == 'referer' %}
+        <input type="hidden" name="{{ hidden.name }}" value="{{ hidden.value }}">
+        {% endif %}
+        {% endfor %}
+
+        {% for visible in form.visible_fields %}
+        <div class="field-wrapper field-row half {{ visible.css_classes }}">
+          {{ visible.label_tag }}
+          <div class="help-text">{{ visible.help_text }}</div>
+          <div class="error empty"></div>
+          {{ visible }}
+        </div>
+        {% endfor %}
+
+        <input type="submit" value="Submit">
+      </form>
+      <div class="legend"><span class="required">*</span> Required field</div>
+      <div class="success" style="display:none">Thank you, a member of our team will contact you shortly, if appropriate.</div>
+      <div class="errors" style="display:none"><span class="form-errors"></span></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+.body-contact input[type=text],
+.contact-form input[type=text],
+.body-contact input[type=email],
+.contact-form input[type=email],
+.body-contact textarea,
+.contact-form textarea {
+  border-radius: 4px;
+  border: 1px solid #b4b4b4;
+  -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.15);
+  color: #333;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 3px;
+}
+.body-contact button,
+.contact-form button,
+.body-contact form input[type=submit],
+.contact-form form input[type=submit],
+.body-contact a.button,
+.contact-form a.button {
+  background: #1991e6;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: #fff;
+  display: block;
+  font-size: 14px;
+  margin: 1em 0 0 0;
+  padding: 4px 15px;
+}
+.body-contact form .field-wrapper,
+.contact-form form .field-wrapper {
+  display: block;
+  font-family: sans-serif;
+  border: 0;
+  padding: 0;
+  margin: 0 0 1em;
+}
+.body-contact form .field-wrapper label,
+.contact-form form .field-wrapper label {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+.body-contact form .field-wrapper.required label:after,
+.contact-form form .field-wrapper.required label:after {
+  content: "*";
+  color: #a00;
+}
+.body-contact form .field-wrapper .help-text,
+.contact-form form .field-wrapper .help-text,
+.body-contact form .field-wrapper .error,
+.contact-form form .field-wrapper .error {
+  font-size: 12px;
+  margin-bottom: 0.5em;
+}
+.body-contact form .field-wrapper .error,
+.contact-form form .field-wrapper .error {
+  color: #a00;
+}
+.body-contact form .field-wrapper .description,
+.contact-form form .field-wrapper .description {
+  display: block;
+  color: #999;
+  font-size: 12px;
+  margin: 0.125em 0 8px 0;
+}
+.body-contact form .errorlist li,
+.contact-form form .errorlist li,
+.body-contact form .form-errors li,
+.contact-form form .form-errors li {
+  color: #a00;
+}
+.body-contact .legend,
+.contact-form .legend {
+  font-family: sans-serif;
+  color: #a00;
+  font-size: 0.8em;
+  margin: 1em 0;
+}
+.body-contact .legend.with-description,
+.contact-form .legend.with-description {
+  margin: 0;
+}
+body.contact-form .body-content form {
+  font-family: sans-serif;
+  margin: 12 0 0 0;
+}
+body.contact-form .body-content form input[type=text],
+body.contact-form .body-content form input[type=email],
+body.contact-form .body-content form textarea {
+  width: 330px;
+}
+.contacts-plugin > .inner .contact-form h3 {
+  font-family: sans-serif;
+  font-size: 16px;
+}
+.contacts-plugin > .inner .contact-form form input[type=text],
+.contacts-plugin > .inner .contact-form form input[type=email],
+.contacts-plugin > .inner .contact-form form textarea {
+  width: 210px;
+}
+.contacts-plugin > .inner .contact-form .errors {
+  font-family: sans-serif;
+  font-size: 12px;
+  color: #a00;
+}

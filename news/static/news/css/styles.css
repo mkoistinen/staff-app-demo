@@ -1,0 +1,55 @@
+body.newsitem-list .newsitems,
+body.newsitem-detail .newsitems {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+body.newsitem-list .newsitem,
+body.newsitem-detail .newsitem {
+  margin: 0 0 1em 0;
+}
+body.newsitem-list .newsitem h1,
+body.newsitem-detail .newsitem h1,
+body.newsitem-list .newsitem h2,
+body.newsitem-detail .newsitem h2 {
+  font-family: sans-serif;
+  font-size: 20px;
+  margin-bottom: 0;
+}
+body.newsitem-list .newsitem h1 a,
+body.newsitem-detail .newsitem h1 a,
+body.newsitem-list .newsitem h2 a,
+body.newsitem-detail .newsitem h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+body.newsitem-list .newsitem h1 a:hover,
+body.newsitem-detail .newsitem h1 a:hover,
+body.newsitem-list .newsitem h2 a:hover,
+body.newsitem-detail .newsitem h2 a:hover {
+  text-decoration: underline;
+}
+body.newsitem-list .newsitem .meta,
+body.newsitem-detail .newsitem .meta,
+body.newsitem-list .newsitem .references p,
+body.newsitem-detail .newsitem .references p {
+  font-family: sans-serif;
+  font-size: 13px;
+  margin: 0;
+}
+body.newsitem-list .newsitem .readmore,
+body.newsitem-detail .newsitem .readmore {
+  font-family: sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+}
+body.newsitem-list .newsitem .readmore:hover,
+body.newsitem-detail .newsitem .readmore:hover {
+  text-decoration: underline;
+}
+body.newsitem-list .newsitem .readmore::after,
+body.newsitem-detail .newsitem .readmore::after {
+  content: " »";
+}

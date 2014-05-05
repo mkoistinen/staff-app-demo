@@ -1,0 +1,53 @@
+{% extends CMS_TEMPLATE %}
+{% load cms_tags cms_extensions_tags query_string_tools sekizai_tags staticfiles thumbnail %}
+
+{% block body_classes %}{{ block.super }} newsitem-list{% endblock %}
+
+{% block app_sidebar %}
+  {% static_placeholder "newsroom_sidebar" %}
+{% endblock %}
+
+{% block app_content %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static "news/css/styles.css" %}">{% endaddtoblock %}
+  <div class="heading">
+  {% static_placeholder "newsroom_content" %}
+  </div>
+  <ul class="newsitems">{% for news_item in object_list %}
+    <li class="newsitem teaser{% if not news_item.published %} unpublished{% endif %}{% if news_item.is_future_publication %} future-publication{% else %} past-publication{% endif %}">
+    {% render_model_block news_item %}
+      <h2><a href="{{ news_item.get_absolute_url }}">{{ news_item.headline }}</a></h2>{% if news_item.subtitle %}
+      <h3>{{ news_item.subtitle }}</h3>{% endif %}
+      <div class="meta">{{ news_item.news_date|date:"F jS, Y" }}</div>
+      {% if news_item.key_image %}
+      {% thumbnail news_item.key_image "140x133" crop as thumb %}
+      <img class="key-thumb" src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" title="{{ news_item.key_image_tooltip }}" alt="{{ news_item.key_image_tooltip }}">
+      {% endif %}
+      {% placeholder_truncate_words news_item.news_body 85 %}
+      <a class="readmore" href="{{ news_item.get_absolute_url }}">Read Full Post</a>
+      {% endrender_model_block %}
+    </li>{% endfor %}
+  </ul>
+  {% if is_paginated %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a class="first" href="{{ request.path }}{% query_string request.GET page=1 %}">newest</a>
+      <a class="prev" href="{{ request.path }}{% query_string request.GET page=page_obj.previous_page_number %}">newer</a>
+    {% else %}
+      <span class="first">newest</span>
+      <span class="prev">newer</span>
+    {% endif %}
+
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+      <a class="next" href="{{ request.path }}{% query_string request.GET page=page_obj.next_page_number %}">older</a>
+      <a class="last" href="{{ request.path }}{% query_string request.GET page="last" %}">oldest</a>
+    {% else %}
+      <span class="next">older</span>
+      <span class="last">oldest</span>
+    {% endif %}
+  </div>
+  {% endif %}
+{% endblock %}

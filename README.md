@@ -16,3 +16,16 @@ Here's some links/references to subjects mentioned in the video:
 * Application/Instance Namespaces - https://docs.djangoproject.com/en/dev/topics/http/urls/#url-namespaces (docs)
 
 Note: I do not include the media (photos) in this repo, since I do not own them.
+
+
+Update
+------
+
+This now includes the code updates and new apps for 4 videos:
+
+1. django CMS 3.0 Application Integration - http://youtu.be/Dj8dhgmzlFM
+2. Loose Coupling and Preset Admin forms - http://youtu.be/aOlZaceMQuU
+3. CMS Plugins (Gist Plugin) - http://youtu.be/1ybHDaZFjus
+4. AJAX-ified CMS Plugins - http://youtu.be/XIdClQgYdzw
+
+=)

@@ -1,0 +1,33 @@
+{% extends CMS_TEMPLATE %}
+{% load cms_tags sekizai_tags staticfiles thumbnail %}
+{% load url from future %}
+
+{% block body_classes %}{{ block.super }} newsitem-detail{% endblock %}
+
+{% block app_sidebar %}
+  {% static_placeholder "newsroom_sidebar" %}
+{% endblock %}
+
+{% block app_content %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static "news/css/styles.css" %}">{% endaddtoblock %}
+  <div class="content newsitem{% if not object.published %} unpublished{% endif %}{% if object.is_future_publication %} future-publication{% endif %}">
+    <h1>{% render_model object 'headline' %}</h1>{% if object.subtitle %}
+    <h3>{{ object.subtitle }}</h3>{% endif %}
+    <p class="meta">{{ object.news_date }}</p>
+    <div class="body">
+      {% if object.key_image %}
+        {% thumbnail object.key_image "140x133" crop as thumb %}
+        <img class="key-thumb" src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" title="{{ object.key_image_tooltip }}" alt="{{ object.key_image_tooltip }}">
+      {% endif %}
+      {% render_placeholder object.news_body %}
+    </div>
+    <div class="boilerplate">
+      {{ object.boilerplate.boilerplate_text|safe }}
+    </div>
+    <div class="references">{% if object.contact and object.contact.offices.count > 0 %}
+      <p><label>Media Contact</label>: {{ object.contact.full_name }}, telephone: {{ object.contact.offices.all.0.telephone }}{% endif %}{% if object.categories.count %}
+      <p><label>Categories</label>: {% for category in object.categories.all %}{% if forloop.counter0 %}, {% endif %}<a href="{% url 'news:archive' category_slug=category.slug %}">{{ category.name }}</a>{% endfor %}</p>{% endif %}{% if related_staff.count > 0 %}
+      <p><label>Related Staff</label>: {% for staff in related_staff.all %}{% if forloop.counter0 %}, {% endif %}<a{% if not staff.published %} class="unpublished"{% endif %} href="{% url 'staff:staffmember_detail' slug=staff.slug %}"{% if not staff.published %} title="This staff record is currently unpublished so will not be listed to the public."{% endif %}>{{ staff.full_name }}</a>{% endfor %}</p>{% endif %}
+    </div>
+  </div>
+{% endblock %}

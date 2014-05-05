@@ -1,0 +1,18 @@
+{% load cms_tags %}
+{% load url from future %}
+
+<div class="news_categories_list_plugin sidebar-plugin plugin{% if instance.is_first_in_placeholder %} first_plugin{% endif %}">
+    <div class="inner">
+        <h3>Categories</h3>
+        <ul class="categories">
+            <li class="category{% if not category_slug %} active{% endif %}"><a href="{% page_url 'newsroom' %}">All</a></li>
+
+            {% for category in categories %}
+            <li class="category{% if category_slug == category.slug %} active{% endif %}">
+                <a href="{% if month %}{% url 'news:archive' category_slug=category.slug year=year month=month %}{% elif year %}{% url 'news:archive' category_slug=category.slug year=year %}{% else %}{% url 'news:archive' category_slug=category.slug %}{% endif %}">{{ category.name }}</a>
+                <span class="meta">({{ category.count }})</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

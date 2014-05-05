@@ -8,7 +8,7 @@ from .models import StaffMember
 
 class StaffListView(ListView):
     model = StaffMember
-    queryset = StaffMember.objects.all()
+    queryset = StaffMember.objects.order_by('order').all()
 
     def render_to_response(self, context, **response_kwargs):
         # Shim to affect the CMS Toolbar only
@@ -32,5 +32,21 @@ class StaffDetailView(DetailView):
         if self.request.toolbar and self.request.toolbar.edit_mode:
             menu = self.request.toolbar.get_or_create_menu('staff-member-menu', self.object.full_name)
             menu.add_modal_item('Edit %s' % self.object.full_name, url=reverse('admin:staff_staffmember_change', args=[self.object.id]), )
+
+            menu.add_break()
+
+            # Ho hum...
+            # menu.add_modal_item('Attach New Clipping',
+            #     url="%s" % (reverse('admin:clippings_clipping_add'), )
+            # )
+
+            # Coolness...
+            menu.add_modal_item('Attach New Clipping',
+                url="%s?staff=%d" % (
+                    reverse('admin:clippings_clipping_add'),
+                    self.object.id,
+                )
+            )
+
 
         return super(StaffDetailView, self).render_to_response(context, **response_kwargs)

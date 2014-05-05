@@ -3,9 +3,9 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from adminsortable.models import Sortable
 from cms.models.fields import PlaceholderField
 from filer.fields.image import FilerImageField
-
 
 class Seniority(models.Model):
     class Meta:
@@ -24,7 +24,7 @@ class Seniority(models.Model):
         return self.label
 
 
-class StaffMember(models.Model):
+class StaffMember(Sortable):
     class Meta:
         app_label = 'staff'
 

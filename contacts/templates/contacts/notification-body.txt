@@ -1,0 +1,22 @@
+Hi,
+
+This is your friendly webserver. I'm just dropping you this note to inform you that someone has used the form on the contact page to leave his or her details:
+
+Name: {{ contact.name }}
+Company: {{ contact.company }}
+Email: {{ contact.email }}
+Telephone: {% if contact.telephone %}{{ contact.telephone }}{% else %}[not supplied]{% endif %}
+
+{% if contact.comments %}This person has also left you a question or comment as follows:
+
+--- snip snip ---
+
+{{ contact.comments }}
+
+--- snip snip ---
+
+{% endif %}{% if contact.referer %}You may also be interested to know that this person was looking at the {{ contact.referer }} page before coming before submitting this form.{% endif %}
+
+
+Best regards,
+Your webserver
