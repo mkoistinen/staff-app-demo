@@ -21,11 +21,13 @@ Note: I do not include the media (photos) in this repo, since I do not own them.
 Update
 ------
 
-This now includes the code updates and new apps for 4 videos:
+This now includes the code updates and new apps for 6 videos:
 
 1. django CMS 3.0 Application Integration - http://youtu.be/Dj8dhgmzlFM
 2. Loose Coupling and Preset Admin forms - http://youtu.be/aOlZaceMQuU
 3. CMS Plugins (Gist Plugin) - http://youtu.be/1ybHDaZFjus
 4. AJAX-ified CMS Plugins - http://youtu.be/XIdClQgYdzw
+5. CMS_TEMPLATE - http://youtu.be/PY9xcpkzZRA
+6. I18N Apps + django CMS - http://youtu.be/CcADEc80Jps
 
 =)
