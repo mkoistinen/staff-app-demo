@@ -1,0 +1,16 @@
+{% extends CMS_TEMPLATE %}
+{% load cms_tags i18n sekizai_tags staticfiles thumbnail %}
+
+{% block title %}{% trans "Products" %}{% endblock title %}
+
+{% block body_classes %}{{ block.super }} product-list{% endblock %}
+
+{% block app_content %}
+	<ul>{% for product in object_list %}
+		<li>
+			<span class="code"><a href="{{ product.get_absolute_url }}">{{ product.code }}</a></span>
+			<span class="name">{{ product.name }}</span>
+			<span class="price">${{ product.price|floatformat:2 }}</span>
+		</li>{% endfor %}
+	</ul>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends CMS_TEMPLATE %}
+{% load cms_tags i18n sekizai_tags %}
+
+{% block title %}{{ product.name }}{% endblock title %}
+
+{% block body_classes %}{{ block.super }} product-detail{% endblock %}
+
+{% block app_content %}
+	<h1>{{ product.name }}</h1>
+	<p class="code">{{ product.code }}</p>
+	<p class="price">${{ product.price|floatformat:2 }}</p>
+	{% render_placeholder product.description %}
+{% endblock %}
