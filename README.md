@@ -3,7 +3,7 @@ staff-app-demo
 
 This is the staff application that was integrated during the video walk-through on YouTube here: http://youtu.be/Dj8dhgmzlFM for the Google+ community: djangoCMS Virtual User Group located here: https://plus.google.com/u/0/communities/107689498573071376044.
 
-Do not try to pip install this. Download this code, and place the "staff" folder into your project. Make sure you include it also in your settings: INSTALLED_APPS.
+Do not try to pip install this. Download this code, and place the various app folders into your project app directory. Make sure you include them also in your settings: INSTALLED_APPS.
 
 Here's some links/references to subjects mentioned in the video:
 

@@ -21,7 +21,7 @@ class GistPluginModel(CMSPlugin):
 		max_length=32,
 	)
 
-	filename = models.CharField('Filename',
+	filename = models.CharField('GitHub User',
 		blank=True,
 		default='',
 		help_text=u'Optional. Supply a filename',

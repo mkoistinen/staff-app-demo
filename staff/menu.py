@@ -21,7 +21,7 @@ class StaffSubMenu(CMSAttachMenu):
 
             node = NavigationNode(
                 mark_safe(staff.full_name),
-                staff.absolute_url(),
+                staff.get_absolute_url(),
                 staff.id,
             )
 

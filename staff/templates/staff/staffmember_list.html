@@ -12,10 +12,10 @@
     {% for staff in object_list %}
     {% thumbnail staff.photo '136x136' crop subject_location=staff.photo.subject_location as photo %}
     <li>
-      <a href="{{ staff.absolute_url }}">
+      <a href="{{ staff.get_absolute_url }}">
         <img src="{{ photo.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ staff.full_name }}">
       </a>
-      <a class="name" href="{{ staff.absolute_url }}">{{ staff.full_name }}</a>
+      <a class="name" href="{{ staff.get_absolute_url }}">{{ staff.full_name }}</a>
       <p class="title">{{ staff.seniority }}</p>
     </li>
     {% empty %}

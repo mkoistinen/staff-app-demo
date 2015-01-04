@@ -10,6 +10,7 @@ from cms.models.fields import PlaceholderField
 from parler.models import TranslatableModel, TranslatedFields
 from parler.utils.context import switch_language
 
+
 @python_2_unicode_compatible
 class Product(TranslatableModel):
     class Meta:
@@ -33,13 +34,13 @@ class Product(TranslatableModel):
     )
 
     translations = TranslatedFields(
-        name = models.CharField(_('name'),
+        name=models.CharField(_('name'),
             blank=False,
             default='',
             help_text=_('Please supply the product name.'),
             max_length=128,
         ),
-        slug = models.SlugField(_('slug'),
+        slug=models.SlugField(_('slug'),
             blank=False,
             default='',
             help_text=_('Please supply the product slug.'),

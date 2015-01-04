@@ -27,7 +27,7 @@ class NewsManager(models.Manager):
 
         if category_slug:
             qs = qs.filter(categories__slug=category_slug)
-        
+
         dates = qs.values_list('news_date', flat=True)
 
         if years_only:
@@ -39,9 +39,15 @@ class NewsManager(models.Manager):
         dates = sorted(dates, reverse=True)
 
         if years_only:
-            return [{ 'date': date(year=year, month=1, day=1), 'count': date_counter[year] } for year in dates]
+            return [{
+                'date': date(year=year, month=1, day=1),
+                'count': date_counter[year]
+            } for year in dates]
         else:
-            return [{'date': date(year=year, month=month, day=1), 'count': date_counter[year, month] } for year, month in dates]
+            return [{
+                'date': date(year=year, month=month, day=1),
+                'count': date_counter[year, month]
+            } for year, month in dates]
 
 
 class NewsItem(models.Model):
@@ -51,67 +57,92 @@ class NewsItem(models.Model):
 
     taints_cache = True
 
-    headline = models.CharField('headline',
+    headline = models.CharField(
+        'headline',
         blank=False,
         default='',
         help_text=u'Please provide a unique headline for this news item.',
         max_length=255,
     )
 
-    slug = models.SlugField('slug',
+    slug = models.SlugField(
+        'slug',
         blank=False,
         default='',
-        help_text=u'Please ensure there is a unique “slug” for this news item. Note, it is strongly recommended that this does not change after publishing this news item.',
+        help_text=u'Please ensure there is a unique “slug” for this news '
+                  u'item. Note, it is strongly recommended that this does '
+                  u'not change after publishing this news item.',
         max_length=255,
     )
 
-    announcement = models.BooleanField(u'announcement?',
+    announcement = models.BooleanField(
+        u'announcement?',
         default=False,
-        help_text=u'Check this box to display this item in the Announcements box on the front page.',
+        help_text=u'Check this box to display this item in the '
+                  u'Announcements box on the front page.',
     )
 
-    announcement_title = models.CharField('announcement title',
+    announcement_title = models.CharField(
+        'announcement title',
         blank=True,
         default='',
-        help_text=u'Optional. Alternate title to be used in the Announcements Box on the front page.',
+        help_text=u'Optional. Alternate title to be used in the '
+                  u'Announcements Box on the front page.',
         max_length=255,
     )
 
-    subtitle = models.CharField('subtitle',
+    subtitle = models.CharField(
+        'subtitle',
         blank=True,
         default='',
-        help_text=u'Optional. Please provide a unique subtitle for this news item.',
+        help_text=u'Optional. Please provide a unique subtitle for this '
+                  u'news item.',
         max_length=255,
     )
 
-    categories = models.ManyToManyField('news.NewsCategory',
+    categories = models.ManyToManyField(
+        'news.NewsCategory',
         blank=False,
         help_text=u'Please select one or more categories for this news item.',
         related_name='news_items',
     )
 
-    published = models.BooleanField('pubished',
+    published = models.BooleanField(
+        'pubished',
         default=False,
         help_text=u'Check to allow this news post to be publically visible',
     )
 
-    news_date = models.DateTimeField(u'news date',
+    news_date = models.DateTimeField(
+        u'news date',
         blank=False,
         default=timezone.now,
-        help_text=u'Please provide the date of this news item. Note, setting this to a future date will prevent this news item from appearing until that time.'
+        help_text=u'Please provide the date of this news item. Note, setting '
+                  u'this to a future date will prevent this news item from '
+                  u'appearing until that time.'
+    )
+
+    mod_date = models.DateTimeField(
+        u'modification date',
+        auto_now=True,
+        editable=False,
     )
 
     def is_future_publication(self):
         '''
-        Returns ``True`` if this news item has a future news_date, else ``False``.
+        Returns ``True`` if this news item has a future news_date, else
+        ``False``.
         '''
         return bool(self.news_date > timezone.now())
 
     objects = NewsManager()
 
-    related_staff = models.ManyToManyField('staff.StaffMember',
+    related_staff = models.ManyToManyField(
+        'staff.StaffMember',
         blank=True,
-        help_text=u'Optional. Please choose zero or more staff related to this item. Selected staff will automatically get a Clipping added that references this news item.',
+        help_text=u'Optional. Please choose zero or more staff related to '
+                  u'this item. Selected staff will automatically get a '
+                  u'Clipping added that references this news item.',
         null=True,
         related_name='news_items',
         verbose_name=u'related staff',
@@ -119,22 +150,25 @@ class NewsItem(models.Model):
 
     key_image = FilerImageField(
         blank=True,
-        help_text=u'Optional. Please supply an image, if one is desired. This will be resized automatically.',
+        help_text=u'Optional. Please supply an image, if one is desired. This '
+                  u'will be resized automatically.',
         null=True,
         related_name='news_key_image',
     )
 
-    key_image_tooltip = models.CharField('key image tooltip',
+    key_image_tooltip = models.CharField(
+        'key image tooltip',
         blank=True,
         default='',
-        help_text=u'Optional. Provide a short description of the key image (if present) for its “tooltip”',
+        help_text=u'Optional. Provide a short description of the key image '
+                  u'(if present) for its “tooltip”',
         max_length=255,
     )
 
     news_body = PlaceholderField('news_item_body')
 
     def get_absolute_url(self):
-        return reverse('news:news_item_detail', kwargs={'slug': self.slug })
+        return reverse('news:news_item_detail', kwargs={'slug': self.slug})
 
     #
     # Purpose of this save() override:
@@ -154,7 +188,12 @@ class NewsItem(models.Model):
 
         if not self.pk:
             super(NewsItem, self).save(*args, **kwargs)
-            add_plugin(self.news_body, 'TextPlugin', 'en', body="<p>News body coming soon.</p>")
+            add_plugin(
+                self.news_body,
+                'TextPlugin',
+                'en',
+                body="<p>News body coming soon.</p>"
+            )
         else:
             super(NewsItem, self).save(*args, **kwargs)
 
